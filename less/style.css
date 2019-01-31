@@ -1,0 +1,45 @@
+body {
+  background-color: #eeeeee;
+  font-family: 'Open Sans', sans-serif;
+}
+#header {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  font-family: 'Libre Baskerville', serif;
+}
+#body {
+  padding-top: 40px;
+  background-color: #eeeeee;
+  text-align: center;
+  color: #2F4F4F;
+}
+.axis path,
+.axis line {
+  stroke: black;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+text {
+  font-family: 'Open Sans', sans-serif;
+  fill: #2F4F4F;
+}
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 230px;
+  height: 80px;
+  padding: 10px;
+  background: lightgray;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: #2F4F4F;
+}
+div.tooltip .country {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 20px;
+}
+div.tooltip .year {
+  padding-bottom: 5px;
+}
