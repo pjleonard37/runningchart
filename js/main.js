@@ -1,7 +1,7 @@
-var data = d3.range(40).map(function(i) {
-    console.log(i);
-    return {x: i, y: i/2};
+var data = d3.range(30).map(function(i) {
+    return {x: i, y: 5*Math.pow((i/1),1.06)};
 });
+
 
 var margin = {top: 40, right: 40, bottom: 40, left: 40},
     width = 960 - margin.left - margin.right,
@@ -19,8 +19,8 @@ var y = d3.scaleLinear()
     }))
     .range([height, 0]);
 
-var line = d3.line()
-    .defined(function(d) { return d; })
+var line = d3.line(data)
+    //.defined(function(d) { return d; })
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
 
@@ -39,12 +39,28 @@ svg.append("g")
 
 svg.append("g")
     .attr("class", "axis axis--y")
-    .attr("transform", "translate(" + margin.left + ")" ,0)
-    .call(d3.axisLeft(y));
+    .attr("transform", "translate(100,0)")
+    .call(d3.axisLeft(y))
+    //.tickFormat(d3.format(".0%"));
 
-svg.append("path")
-    .attr("class", "line")
-    .attr("d", line);
+svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height - 6)
+    .text("Miles");
+
+svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 6)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Minutes");
+
+// svg.append("path")
+//     .attr("class", "line")
+//     .attr("d", line);
 
 svg.selectAll(".dot")
   .data(data.filter(function(d) { return d; }))
