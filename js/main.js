@@ -1,5 +1,5 @@
 var data = d3.range(30).map(function(i) {
-    return {x: i, y: 5*Math.pow((i/1),1.06)};
+    return {x: i, y: 5*Math.pow((i/1),1.06), z: i/(5*Math.pow((i/1),1.06))};
 });
 
 
@@ -19,10 +19,21 @@ var y = d3.scaleLinear()
     }))
     .range([height, 0]);
 
+var z = d3.scaleLinear()
+    .domain(d3.extent(data, function (d) {
+        return d.z;
+    }))
+    .range([height, 0]);
+
 var line = d3.line(data)
     //.defined(function(d) { return d; })
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
+
+var linePace = d3.line(data)
+    //.defined(function(d) { return d; })
+    .x(function(d) { return x(d.x); })
+    .y(function(d) { return y(d.z); });
 
 console.log(data);
 var svg = d3.select("svg")
@@ -41,6 +52,12 @@ svg.append("g")
     .attr("class", "axis axis--y")
     .attr("transform", "translate(100,0)")
     .call(d3.axisLeft(y))
+    //.tickFormat(d3.format(".0%"));
+
+svg.append("g")
+    .attr("class", "axis axis--z")
+    .attr("transform", "translate(" + width + ",0)")
+    .call(d3.axisRight(z))
     //.tickFormat(d3.format(".0%"));
 
 svg.append("text")
@@ -69,3 +86,11 @@ svg.selectAll(".dot")
     .attr("cx", line.x())
     .attr("cy", line.y())
     .attr("r", 3.5);
+
+svg.selectAll(".dot")
+  .data(data.filter(function(d) { return d; }))
+  .enter().append("circle")
+    .attr("class", "dot")
+    .attr("cx", linePace.x())
+    .attr("cy", linePace.y())
+    .attr("r", 12.5);
