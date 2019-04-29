@@ -74,7 +74,7 @@ svg.append("text")
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
     .text("Minutes");
-
+ 
 // svg.append("path")
 //     .attr("class", "line")
 //     .attr("d", line);
